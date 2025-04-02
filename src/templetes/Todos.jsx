@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import config from "../config";
 
 export default function Todos() {
     const [tasks, setTasks] = useState([]);
@@ -30,7 +31,7 @@ export default function Todos() {
     // Fetch tasks if the user is logged in
     const fetchTasks = async (token) => {
         try {
-            const response = await axios.get("http://127.0.0.1:8000/api/todos/", {
+            const response = await axios.get(`${config.BASE_URL}/api/todos/`, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                 }
@@ -56,7 +57,7 @@ export default function Todos() {
         try {
             const token = localStorage.getItem("access");
             if (token) {
-                await axios.post("http://127.0.0.1:8000/api/auth/logout/", {
+                await axios.post(`${config.BASE_URL}/api/auth/logout/`, {
                     refresh_token: localStorage.getItem("refresh"), // Assuming you store refresh token
                 }, {
                     headers: {
@@ -101,7 +102,7 @@ export default function Todos() {
 
         try {
             const response = await axios.post(
-                "http://127.0.0.1:8000/api/todos/add/",
+                `${config.BASE_URL}/api/todos/add/`,
                 requestBody,
                 {
                     headers: {
@@ -132,7 +133,7 @@ export default function Todos() {
 
         try {
             const response = await axios.put(
-                `http://127.0.0.1:8000/api/todos/update/${taskId}/`,
+                `${config.BASE_URL}/api/todos/update/${taskId}/`,
                 updatedTask,
                 { headers: { "Authorization": `Bearer ${token}` } }
             );
@@ -155,7 +156,7 @@ export default function Todos() {
         }
 
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/todos/delete/${taskId}/`, {
+            await axios.delete(`${config.BASE_URL}/api/todos/delete/${taskId}/`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
 
@@ -169,7 +170,7 @@ export default function Todos() {
     // Login user
     const loginUser = async () => {
         try {
-            const response = await axios.post("http://127.0.0.1:8000/api/auth/login/", {
+            const response = await axios.post(`${config.BASE_URL}/api/auth/login/`, {
                 username,
                 password
             });

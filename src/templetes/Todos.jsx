@@ -41,7 +41,8 @@ export default function Todos() {
             console.error("Error fetching tasks:", error.response ? error.response.data : error);
 
             // Check if the error is a token-related error
-            if (error.response && error.response.data.code === 'token_not_valid') {
+            if (error.response?.data?.code === 'token_not_valid')
+                {
                 setError("Your session has expired. Please log in again.");
                 localStorage.removeItem("access"); // Clear the expired token
                 setIsLoggedIn(false); // Update login status

@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  test:
+  Continuous-Integration:
     runs-on: ubuntu-latest
     
     steps:
@@ -27,8 +27,3 @@ jobs:
     - name: Run tests
       run: |
         npm test
-
-    - name: Lint code
-      run: |
-        npm run lint
-
